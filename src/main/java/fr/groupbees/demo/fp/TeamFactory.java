@@ -43,7 +43,5 @@ public class TeamFactory {
                 .register(TeamType.CITY, () -> new City("Real", "Vamos"))
                 .register(TeamType.DORTMUND, () -> new Dortmund("Real", "Vamos"))
                 .get();
-
-        final String test = "";
     }
 }

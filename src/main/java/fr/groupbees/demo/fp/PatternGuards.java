@@ -70,8 +70,5 @@ public class PatternGuards<T, R> {
                 .with(p -> p.firstName().equals("Roni"), () -> new Real("Roni", "Roni"))
                 .with(p -> p.firstName().equals("Mohamed"), () -> new Real("Mohamed", "Mohamed"))
                 .get();
-
-
-        final String test = "";
     }
 }

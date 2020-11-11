@@ -71,7 +71,5 @@ public class Validator<T> {
                 .thenTo(Person::address)
                 .validate(Address::street, not(String::isEmpty), "The street should not be empty")
                 .getErrorMessages();
-
-        final String toto = "";
     }
 }
