@@ -5,7 +5,7 @@ import fr.groupbees.demo.fp.pojo.team.Real;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -15,7 +15,7 @@ import java.util.function.Supplier;
 public class PatternGuards<T, R> {
 
     private final T object;
-    private final Map<Predicate<T>, Supplier<R>> cases = new HashMap<>();
+    private final Map<Predicate<T>, Supplier<R>> cases = new LinkedHashMap<>();
 
     public static <T> PatternGuards<T, ?> from(final T fromObject) {
         return new PatternGuards<>(fromObject);
@@ -68,7 +68,15 @@ public class PatternGuards<T, R> {
                 .to(Real.class)
                 .with(p -> p.firstName().equals("Zizou"), () -> new Real("Zizou", "Zizou"))
                 .with(p -> p.firstName().equals("Roni"), () -> new Real("Roni", "Roni"))
-                .with(p -> p.firstName().equals("Mohamed"), () -> new Real("Mohamed", "Mohamed"))
+                .with(PatternGuards::startWithMohamed, () -> new Real("Mohamed", "Mohamed"))
                 .get();
+    }
+
+    private static boolean startWithMohamed(final Person person) {
+        return person.firstName().startsWith("Mohamed");
+    }
+
+    private static String test(final int value) {
+        return "toto";
     }
 }
