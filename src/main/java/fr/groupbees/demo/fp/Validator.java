@@ -8,7 +8,6 @@ import lombok.AllArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -27,14 +26,15 @@ public class Validator<T> {
     }
 
     public <R> Validator<T> validate(final Function<T, R> projection,
-                                     final Predicate<R> predicate,
+                                     final Predicate<R> predicateOnField,
                                      final String message) {
 
-        final Predicate<T> resultPredicate = projection.andThen(predicate::test)::apply;
+        final boolean result = predicateOnField.test(projection.apply(object));
+        // final Predicate<T> resultPredicate = projection.andThen(predicate::test)::apply;
 
-        Optional.of(object)
-                .filter(not(resultPredicate))
-                .ifPresent(obj -> errorMessages.add(message));
+        if (!result) {
+            errorMessages.add(message);
+        }
 
         return this;
     }
@@ -70,6 +70,7 @@ public class Validator<T> {
                 .validate(Person::lastName, isNonNull, "The last name should not be null")
                 .thenTo(Person::address)
                 .validate(Address::street, not(String::isEmpty), "The street should not be empty")
+                .validate(Address::zipCode, not(String::isEmpty), "The zip code should not be empty")
                 .getErrorMessages();
     }
 }
