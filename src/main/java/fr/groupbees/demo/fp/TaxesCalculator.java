@@ -60,7 +60,7 @@ public class TaxesCalculator {
         var result = TaxesCalculator.of()
                 .calculate("Tax1", () -> new TaxData1(100000, 20000), TaxesHelper::calculateTax1)
                 .calculate("Tax2", () -> new TaxData2(500000, 300000, 0.25), TaxesHelper::calculateTax2)
-                .calculate("FakeTax1", () -> new TaxData1(100, 20), t -> t.income() + 5d)
+                .calculate("FakeTax1", () -> new TaxData1(100, 20), t -> t.income() + 5)
                 .get();
 
         System.out.println(result);
