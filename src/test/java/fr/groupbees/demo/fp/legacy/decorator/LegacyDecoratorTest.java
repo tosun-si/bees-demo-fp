@@ -13,9 +13,11 @@ public class LegacyDecoratorTest {
         final double turnover = 100000;
 
         // When.
-        final double profit =
-                new ExceptionalExpensesDecorator(new RemunerationDecorator(new DeductibleTaxesDecorator(
-                        new OperatingExpensesDecorator(new DefaultProfitCalculator())))).calculate(turnover);
+        final double profit = new ExceptionalExpensesDecorator(
+                new RemunerationDecorator(
+                        new DeductibleTaxesDecorator(
+                                new OperatingExpensesDecorator(
+                                        new DefaultProfitCalculator())))).calculate(turnover);
 
         // Then.
         assertThat(profit).isNotNull().isEqualTo(32600);

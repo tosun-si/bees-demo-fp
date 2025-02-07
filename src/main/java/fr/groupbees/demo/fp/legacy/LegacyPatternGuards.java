@@ -28,7 +28,7 @@ public class LegacyPatternGuards {
         }
     }
 
-    public Real getReamTeam() {
+    public Real getRealTeam() {
         if (person.firstName().equals("Benzema")) {
             return new Real("Benzema", "Benzema");
         } else if (isStartWithCasemir(person)) {
