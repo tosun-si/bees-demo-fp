@@ -21,7 +21,7 @@ record TaxData2(
 ) implements TaxData {
 }
 
-interface TaxesHelper {
+interface TaxesCalculatorHelper {
     static double calculateTax1(final TaxData1 data) {
         var taxableIncome = data.income() - data.deductions();
         return taxableIncome * 0.3;
@@ -40,7 +40,7 @@ public class TaxesCalculator {
         this.taxCalculations = taxCalculations;
     }
 
-    public static TaxesCalculator of() {
+    public static TaxesCalculator newInstance() {
         return new TaxesCalculator(new HashMap<>());
     }
 
@@ -57,9 +57,9 @@ public class TaxesCalculator {
     }
 
     public static void main(String[] args) {
-        var result = TaxesCalculator.of()
-                .calculate("Tax1", () -> new TaxData1(100000, 20000), TaxesHelper::calculateTax1)
-                .calculate("Tax2", () -> new TaxData2(500000, 300000, 0.25), TaxesHelper::calculateTax2)
+        var result = TaxesCalculator.newInstance()
+                .calculate("Tax1", () -> new TaxData1(100000, 20000), TaxesCalculatorHelper::calculateTax1)
+                .calculate("Tax2", () -> new TaxData2(500000, 300000, 0.25), TaxesCalculatorHelper::calculateTax2)
                 .calculate("FakeTax1", () -> new TaxData1(100, 20), t -> t.income() + 5)
                 .get();
 
